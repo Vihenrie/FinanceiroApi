@@ -8,33 +8,33 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCliente;
 
-    private Long idCliente;
-    private String NomeCliente;
+    private String nomeCliente;
 
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore
-    private List<ContasReceber> Contas = new ArrayList<>();
+    private List<ContasReceber> ContasReceber = new ArrayList<>();
 
-    public Long getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 
     public String getNomeCliente() {
-        return NomeCliente;
+        return nomeCliente;
     }
 
     public void setNomeCliente(String nomeCliente) {
-        NomeCliente = nomeCliente;
+        this.nomeCliente = nomeCliente;
     }
 
     @Override
