@@ -12,19 +12,19 @@ public class ContasReceber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long idContas;
+    private Integer idContas;
     private LocalDate DataConta;
     private BigDecimal ValorConta;
 
     @ManyToOne
-    @JoinColumn(name = "idCliente")
+    @JoinColumn(name="idCliente")
     private Cliente cliente;
 
-    public Long getIdContas() {
+    public Integer getIdContas() {
         return idContas;
     }
 
-    public void setIdContas(Long idContas) {
+    public void setIdContas(Integer idContas) {
         this.idContas = idContas;
     }
 

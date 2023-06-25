@@ -13,20 +13,21 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
 
+    private Integer id_Cliente;
+
+    @Column(name = "nomecliente")
     private String nomeCliente;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonIgnore
     private List<ContasReceber> ContasReceber = new ArrayList<>();
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Integer getId_Cliente() {
+        return id_Cliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setId_Cliente(Integer id_Cliente) {
+        this.id_Cliente = id_Cliente;
     }
 
     public String getNomeCliente() {
@@ -42,11 +43,11 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(idCliente, cliente.idCliente);
+        return Objects.equals(id_Cliente, cliente.id_Cliente);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCliente);
+        return Objects.hash(id_Cliente);
     }
 }

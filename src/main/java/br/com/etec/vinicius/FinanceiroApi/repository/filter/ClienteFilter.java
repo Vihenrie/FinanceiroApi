@@ -2,13 +2,13 @@ package br.com.etec.vinicius.FinanceiroApi.repository.filter;
 
 public class ClienteFilter {
 
-    private String NomeCliente;
+    private String nomeCliente;
 
     public String getNomeCliente() {
-        return NomeCliente;
+        return nomeCliente;
     }
 
     public void setNomeCliente(String nomeCliente) {
-        NomeCliente = nomeCliente;
+        this.nomeCliente = nomeCliente;
     }
 }

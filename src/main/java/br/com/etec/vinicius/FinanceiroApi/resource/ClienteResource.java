@@ -1,4 +1,4 @@
-package br.com.etec.vinicius.FinanceiroApi.resoruce;
+package br.com.etec.vinicius.FinanceiroApi.resource;
 
 import br.com.etec.vinicius.FinanceiroApi.model.Cliente;
 import br.com.etec.vinicius.FinanceiroApi.repository.ClienteRepository;
