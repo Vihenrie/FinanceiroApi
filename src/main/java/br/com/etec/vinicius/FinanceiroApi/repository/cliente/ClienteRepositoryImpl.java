@@ -35,12 +35,12 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery{
         criteria.orderBy(builder.asc(root.get("nomeCliente")));
 
         TypedQuery<Cliente> query = manager.createQuery(criteria);
-        addResticoesDePag(query, pageable);         //Adicionar Restrições de Paginação
+        addRestricoesDePag(query, pageable);         //Adicionar Restrições de Paginação
 
         return new PageImpl<>(query.getResultList(), pageable, total(clienteFilter));
     }
 
-    private void addResticoesDePag(TypedQuery<Cliente> query, Pageable pageable) {
+    private void addRestricoesDePag(TypedQuery<Cliente> query, Pageable pageable) {
         int pagAtual = pageable.getPageNumber();        //Pagina Atual
         int totRegPorPag = pageable.getPageSize();      //Total Registro Por Pagina
         int primeRegPag = pagAtual * totRegPorPag;      //Primeiro Registro da Pagina

@@ -20,7 +20,7 @@ public class Cliente {
     private String nomeCliente;
 
     @OneToMany(mappedBy = "cliente")
-    private List<ContasReceber> ContasReceber = new ArrayList<>();
+    private List<Contas> Contas = new ArrayList<>();
 
     public Integer getId_Cliente() {
         return id_Cliente;
