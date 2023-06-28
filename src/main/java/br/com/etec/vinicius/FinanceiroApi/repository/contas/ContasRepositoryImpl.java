@@ -1,7 +1,9 @@
-package br.com.etec.vinicius.FinanceiroApi.repository.contasRepository;
+package br.com.etec.vinicius.FinanceiroApi.repository.contas;
 
 import br.com.etec.vinicius.FinanceiroApi.model.Contas;
+import br.com.etec.vinicius.FinanceiroApi.repository.projections.ContasDto;
 import br.com.etec.vinicius.FinanceiroApi.repository.filter.ContasFilter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -22,23 +24,30 @@ public class ContasRepositoryImpl implements ContasRepositoryQuery {
     private EntityManager manager;
 
     @Override
-    public Page<Contas> Filtrar(ContasFilter contasFilter, Pageable pageable) {
+    public Page<ContasDto> Filtrar(ContasFilter contasFilter, Pageable pageable) {
 
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<Contas> criteria = builder.createQuery(Contas.class);
+        CriteriaQuery<ContasDto> criteria = builder.createQuery(ContasDto.class);
         Root<Contas> root = criteria.from(Contas.class);
+
+        criteria.select(builder.construct(ContasDto.class,
+                root.get("id_Contas"),
+                root.get("dataconta"),
+                root.get("valorconta"),
+                root.get("cliente").get("nomeCliente")
+        ));
 
         Predicate[] predicates = criarRestricoes(contasFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("data_Conta")));
+        criteria.orderBy(builder.asc(root.get("dataconta")));
 
-        TypedQuery<Contas> query = manager.createQuery(criteria);
+        TypedQuery<ContasDto> query = manager.createQuery(criteria);
         addRestricoesDePag(query, pageable);
 
         return new PageImpl<>(query.getResultList(), pageable, total(contasFilter));
     }
 
-    private void addRestricoesDePag(TypedQuery<Contas> query, Pageable pageable) {
+    private void addRestricoesDePag(TypedQuery<ContasDto> query, Pageable pageable) {
         int pagAtual = pageable.getPageNumber();        //Pagina Atual
         int totRegPorPag = pageable.getPageSize();      //Total Registro Por Pagina
         int primeRegPag = pagAtual * totRegPorPag;      //Primeiro Registro da Pagina
@@ -54,7 +63,7 @@ public class ContasRepositoryImpl implements ContasRepositoryQuery {
 
         Predicate[] predicates = criarRestricoes(contasFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("data_Conta")));
+        criteria.orderBy(builder.asc(root.get("dataconta")));
 
         criteria.select(builder.count(root));
 
@@ -64,11 +73,21 @@ public class ContasRepositoryImpl implements ContasRepositoryQuery {
     private Predicate[] criarRestricoes(ContasFilter contasFilter, CriteriaBuilder builder, Root<Contas> root){
 
         List<Predicate> predicates = new ArrayList<>();
-
-        if(contasFilter.getData_Conta() != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("data_Conta"),
-                    contasFilter.getData_Conta()));
+        if(!StringUtils.isEmpty(contasFilter.getNomeCliente())) {
+            predicates.add(builder.like(builder.lower(root.get("cliente").get("nomeCliente")),
+                    "%" + contasFilter.getNomeCliente().toLowerCase() + "%"));
         }
+
+        if(contasFilter.getDataconta() != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("dataconta"),
+                    contasFilter.getDataconta()));
+        }
+
+        if(contasFilter.getValorconta() != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("valorconta"),
+                    contasFilter.getValorconta()));
+        }
+
         return predicates.toArray(new Predicate[predicates.size()]);
     }
 }

@@ -1,7 +1,7 @@
 package br.com.etec.vinicius.FinanceiroApi.repository;
 
 import br.com.etec.vinicius.FinanceiroApi.model.Contas;
-import br.com.etec.vinicius.FinanceiroApi.repository.contasRepository.ContasRepositoryQuery;
+import br.com.etec.vinicius.FinanceiroApi.repository.contas.ContasRepositoryQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

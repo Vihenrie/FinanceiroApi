@@ -5,22 +5,32 @@ import java.time.LocalDate;
 
 public class ContasFilter {
 
-    private LocalDate data_Conta;
-    private BigDecimal valor_Conta;
+    private LocalDate dataconta;
+    private BigDecimal valorconta;
+    private String nomeCliente;
 
-    public LocalDate getData_Conta() {
-        return data_Conta;
+
+    public LocalDate getDataconta() {
+        return dataconta;
     }
 
-    public void setData_Conta(LocalDate data_Conta) {
-        this.data_Conta = data_Conta;
+    public void setDataconta(LocalDate dataconta) {
+        this.dataconta = dataconta;
     }
 
-    public BigDecimal getValor_Conta() {
-        return valor_Conta;
+    public BigDecimal getValorconta() {
+        return valorconta;
     }
 
-    public void setValor_Conta(BigDecimal valor_Conta) {
-        this.valor_Conta = valor_Conta;
+    public void setValorconta(BigDecimal valorconta) {
+        this.valorconta = valorconta;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 }

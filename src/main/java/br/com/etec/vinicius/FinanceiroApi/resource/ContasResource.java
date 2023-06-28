@@ -1,6 +1,7 @@
 package br.com.etec.vinicius.FinanceiroApi.resource;
 
 import br.com.etec.vinicius.FinanceiroApi.model.Contas;
+import br.com.etec.vinicius.FinanceiroApi.repository.projections.ContasDto;
 import br.com.etec.vinicius.FinanceiroApi.repository.ContasRepository;
 import br.com.etec.vinicius.FinanceiroApi.repository.filter.ContasFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ContasResource {
     private ContasRepository contasRepository;
 
     @GetMapping
-    public Page<Contas> pesquisar(ContasFilter contasFilter, Pageable pageable){
+    public Page<ContasDto> pesquisar(ContasFilter contasFilter, Pageable pageable){
         return contasRepository.Filtrar(contasFilter, pageable);
     }
 

@@ -1,24 +1,22 @@
-package br.com.etec.vinicius.FinanceiroApi.model;
+package br.com.etec.vinicius.FinanceiroApi.repository.projections;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Date;
 
-@Entity
-@Table(name="contas")
-public class Contas {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContasDto {
 
     private Integer id_Contas;
     private LocalDate dataconta;
     private BigDecimal valorconta;
+    private String nomeCliente;
 
-    @ManyToOne
-    @JoinColumn(name="id_Cliente")
-    private Cliente cliente;
+    public ContasDto(Integer id_Contas, LocalDate dataconta, BigDecimal valorconta, String nomecliente){
+        this.id_Contas = id_Contas;
+        this.dataconta = dataconta;
+        this.valorconta = valorconta;
+        this.nomeCliente = nomecliente;
+    }
 
     public Integer getId_Contas() {
         return id_Contas;
@@ -44,16 +42,11 @@ public class Contas {
         this.valorconta = valorconta;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contas contas = (Contas) o;
-        return Objects.equals(id_Contas, contas.id_Contas);
+    public String getNomeCliente() {
+        return nomeCliente;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id_Contas);
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 }
