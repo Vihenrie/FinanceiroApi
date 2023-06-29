@@ -79,7 +79,7 @@ public class ContasRepositoryImpl implements ContasRepositoryQuery {
         }
 
         if(contasFilter.getDataconta() != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("dataconta"),
+            predicates.add(builder.equal(root.get("dataconta"),
                     contasFilter.getDataconta()));
         }
 
